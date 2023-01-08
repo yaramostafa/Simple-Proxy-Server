@@ -18,3 +18,10 @@ then write
 python proxyserver.py (your ip address)
 ```
 Note this proxy works python 2
+
+example 
+![image](https://user-images.githubusercontent.com/89746218/211193648-a2a805bf-a03b-4ab2-9539-4ba5e54e290c.png)
+
+reading from cache
+![image](https://user-images.githubusercontent.com/89746218/211193668-564d469f-e963-4b61-b8da-99cfce3b8c40.png)
+
