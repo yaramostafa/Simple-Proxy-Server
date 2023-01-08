@@ -10,7 +10,7 @@ returns it to the client and caches a copy for future requests
 Supports URL Filter where a list of websites are blocked the proxyserver prevents user from accessing them and returns an error page 
 with a message that says “This URL is blocked”
 
-### To run the proxy server
+## To run the proxy server
 open cmd and direct it to where the file is for example if its on desktop write "cd desktop".
 then write
 
