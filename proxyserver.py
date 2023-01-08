@@ -91,8 +91,8 @@ while 1:
                     for i in range(0, len(buffer)):
                         tmpFile.write(buffer[i])
 
-                    tcpCliSock.sendall("HTTP/1.0 200 OK\r\n".encode())  # mod
-                    tcpCliSock.sendall("Content-Type:text/html\r\n".encode())  # mod
+                    tcpCliSock.sendall("HTTP/1.0 200 OK\r\n".encode())
+                    tcpCliSock.sendall("Content-Type:text/html\r\n".encode())
                     tcpCliSock.sendall("Content-Type: image/jpeg\r\n".encode())
                     tcpCliSock.sendall(buffer)
                     tmpFile.close()
@@ -103,14 +103,12 @@ while 1:
 
             else:
                  print("error 404")
-
-                 tcpCliSock.sendall("HTTP/1.0 404 page not found\r\n".encode())  # mod
-                 tcpCliSock.sendall("Content-Type:text/html\r\n".encode())  # mod
+                 tcpCliSock.sendall("HTTP/1.0 404 page not found\r\n".encode())
+                 tcpCliSock.sendall("Content-Type:text/html\r\n".encode())
 
 
 
             tcpCliSock.close()
  # Fill in start.
-tcpSerSock.flush()
 tcpSerSock.close()
  # Fill in end.-
