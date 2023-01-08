@@ -7,7 +7,7 @@ if len(sys.argv) <= 1:
     sys.exit(2)
 # Create a server socket, bind it to a port and start listening
 
-tcpSerSock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+tcpSerSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 tcpSerSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 tcpSerSock.bind(("", 8888))
@@ -20,6 +20,7 @@ while 1:
     tcpCliSock, addr = tcpSerSock.accept()
     print ('Received a connection from:', addr)
     message = tcpCliSock.recv(4096)
+    print("MESSAGE RECIEVED IS ")
 
     flag = False
 
@@ -27,6 +28,10 @@ while 1:
         continue
 
     file = message.split()[1]
+
+    fileExist = "false"
+    filetouse = file
+    print(filetouse)
 
     filename = file.split('/')[1]
     file2 = message.split()[1].partition("/")[2]
@@ -38,17 +43,15 @@ while 1:
         if line == file2:
             print("This URL is blocked")
             flag = True
-        else:
-            fileExist = "false"
-            filetouse = file
-            print("file to use is: ", filetouse)
+            break
+
+    URLf.close()
 
     if not flag:
         try:
             # Check wether the file exist in the cache
             f = open(filetouse[1:], "rb")
             outputdata = f.read()
-            fileExist = "true"
             # ProxyServer finds a cache file and generates a response message
             tcpCliSock.sendall("HTTP/1.0 200 OK\r\n".encode())
             tcpCliSock.sendall("Content-Type:text/html\r\n".encode())
@@ -67,6 +70,7 @@ while 1:
                  file = file[1:]
                  hostn = file
                  hostn = file.replace("www.","",1)
+                 print("host NAME is : ", hostn)
 
                  try:
                     print('connected to port 80')
@@ -80,7 +84,7 @@ while 1:
                         conneted=hostn
                         fileobj.write(b'GET / HTTP/1.0\r\n\r\n')
                     else:
-                        print("**************Get path in referer: " + hostn)
+                        print("********Get path in referer********: " + hostn)
                         c.connect((conneted, 80))
                         fileobj.write(b'GET /' + hostn + ' HTTP/1.0\r\n\r\n'.encode())
 
@@ -106,9 +110,8 @@ while 1:
                  tcpCliSock.sendall("HTTP/1.0 404 page not found\r\n".encode())
                  tcpCliSock.sendall("Content-Type:text/html\r\n".encode())
 
-
-
             tcpCliSock.close()
  # Fill in start.
+tcpSerSock.flush()
 tcpSerSock.close()
  # Fill in end.-
